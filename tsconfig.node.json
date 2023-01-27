@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "composite": true,
-    "types": ["node", "@intlify/unplugin-vue-i18n/messages"],
+    "types": ["node"],
     "module": "ESNext",
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,

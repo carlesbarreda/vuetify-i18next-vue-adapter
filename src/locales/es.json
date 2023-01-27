@@ -4,7 +4,7 @@
     "es": "Castellano",
     "en": "Inglés"
   },
-  "title": "Prueba de integración de Vuetify con vue-i18n",
+  "title": "Prueba de integración de Vuetify con I18next",
   "files": "Archivos",
   "total": "Total",
   "size": "Tamaño",
