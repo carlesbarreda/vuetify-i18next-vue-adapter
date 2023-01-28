@@ -24,7 +24,8 @@ const localeItems = computed(() => {
   // @ts-ignore
   Object.entries(messages.value[props.modelValue]["locales"]).forEach((value) => {
     // @ts-ignore
-    locales.push({ locale: value[0], name: messages.value[value[0]]["locales"][value[0]] });
+    //locales.push({ locale: value[0], name: messages.value[value[0]]["locales"][value[0]] });
+    locales.push({ locale: value[0], name: t("locales." + value[0]) });
   });
   return locales;
 });
