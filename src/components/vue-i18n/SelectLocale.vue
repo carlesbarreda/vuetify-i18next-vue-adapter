@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useLocale } from 'vuetify';
+import { useI18n } from 'vue-i18n';
 
-const { messages, t } = useLocale();
+const { availableLocales, t } = useI18n({
+  inheritLocale: true,
+  useScope: "global",
+});
 
 const props = withDefaults(
   defineProps<{
@@ -10,7 +13,7 @@ const props = withDefaults(
     label?: string
   }>(),
   {
-    modelValue: "en",
+    modelValue: import.meta.env.APP_LOCALE ? import.meta.env.APP_LOCALE : "ca",
     label: 'locale',
   }
 );
@@ -19,19 +22,17 @@ const emit = defineEmits<{
   (event: "update:modelValue", modelValue: string): void;
 }>();
 
-const localeItems = computed(() => {
-  let locales: LocaleItem[] = [];
-  // @ts-ignore
-  Object.entries(messages.value[props.modelValue]["locales"]).forEach((value) => {
-    // @ts-ignore
-    locales.push({ locale: value[0], name: messages.value[value[0]]["locales"][value[0]] });
-  });
-  return locales;
-});
-
 const localeItem = computed({
   get: () => ({ locale: props.modelValue, name: t("locales." + props.modelValue) }),
   set: (item) => emit("update:modelValue", item.locale),
+});
+
+const localeItems = computed(() => {
+  let locales: LocaleItem[] = [];
+  availableLocales.forEach((value) =>
+    locales.push({ locale: String(value), name: t("locales." + value) })
+  );
+  return locales;
 });
 
 /* Example usage

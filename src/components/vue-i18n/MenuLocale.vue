@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { useLocale } from 'vuetify';
+import { useI18n } from 'vue-i18n';
 
-const { messages, t } = useLocale();
+const { availableLocales, t } = useI18n({
+  inheritLocale: true,
+  useScope: "global",
+});
 
 const props = withDefaults(
   defineProps<{
@@ -12,7 +15,7 @@ const props = withDefaults(
     show?: boolean;
   }>(),
   {
-    modelValue: "en",
+    modelValue: import.meta.env.APP_LOCALE ? import.meta.env.APP_LOCALE : "ca",
     activator: "parent",
     anchor: "bottom end",
     show: false,
@@ -30,11 +33,9 @@ const emit = defineEmits<{
 
 const localeItems = computed(() => {
   let locales: LocaleItem[] = [];
-  // @ts-ignore
-  Object.entries(messages.value[props.modelValue]["locales"]).forEach((value) => {
-    // @ts-ignore
-    locales.push({ locale: value[0], name: messages.value[value[0]]["locales"][value[0]] });
-  });
+  availableLocales.forEach((value) =>
+    locales.push({ locale: String(value), name: t("locales." + value) })
+  );
   return locales;
 });
 
@@ -51,13 +52,13 @@ const showMenu = computed({
 /* Example usage
 <v-btn variant="text" icon>
   <v-icon>mdi-flag</v-icon>
-  <MenuLocale v-model="current" />
+  <MenuLocale v-model="locale" />
 </v-btn>
 
 <v-btn variant="text" icon id="menu-locale-activator">
   <v-icon>mdi-flag</v-icon>
 </v-btn>
-<MenuLocale v-model="current" v-model:show="isMenuLocale" activator="#menu-locale-activator" anchor="bottom end" />
+<MenuLocale v-model="locale" v-model:show="isMenuLocale" activator="#menu-locale-activator" anchor="bottom end" />
 */
 </script>
 

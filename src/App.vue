@@ -3,7 +3,7 @@ import { ref, computed } from 'vue';
 //import MenuLocale from '@/components/i18next/MenuLocale.vue';
 //import SelectLocale from '@/components/i18next/SelectLocale.vue';
 import MenuLocale from '@/components/vuetify/MenuLocale.vue';
-import SelectLocale from '@/components/i18next/SelectLocale.vue';
+import SelectLocale from '@/components/vuetify/SelectLocale.vue';
 
 //import { useTranslation } from "i18next-vue";
 import { useLocale } from 'vuetify';
